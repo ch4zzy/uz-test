@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import List
-from pydantic import BaseModel, constr, conint, field_validator, model_validator
+from pydantic import BaseModel, constr, conint, field_validator, model_validator, Field
 
 
 class Station(BaseModel):
@@ -13,7 +13,9 @@ class Station(BaseModel):
     code: int - station code (between 2200000 and 2299999)
     """
     id: int = None
-    name: constr(min_length=3, max_length=64, pattern=r"^[А-Яа-яІЇЄҐієїґ0-9'-]{3,}$")
+    name: constr(
+        min_length=3, max_length=64, pattern=r"^[А-Яа-яІЇЄҐієїґ0-9'-]{3,}$"
+    ) = Field(..., example='Київ-Пасажирський-5')
     code: conint(ge=2200000, le=2299999)
 
 
@@ -37,8 +39,10 @@ class Train(BaseModel):
     wagons: List[Wagon] - list of wagons (at least 1 wagon, all wagon numbers must be unique)
     """
     id: int = None
-    number: constr(min_length=4, max_length=4, pattern=r"^\d{3}[А-ЯІЇЄҐ]$")
-    wagons: List[Wagon]
+    number: constr(
+        min_length=4, max_length=4, pattern=r"^\d{3}[А-ЯІЇЄҐ]$"
+    ) = Field(..., example='123А')
+    wagons: List[Wagon] = Field(..., example=[{"number": "01К"}, {"number": "02Л"}])
 
     @field_validator('wagons')
     @classmethod
@@ -65,7 +69,9 @@ class Trip(BaseModel):
     arrival_time: datetime - arrival time
     """
     id: int = None
-    train_number: constr(min_length=4, max_length=4, pattern="^\d{3}[А-ЯІЇЄҐ]$")
+    train_number: constr(
+        min_length=4, max_length=4, pattern="^\d{3}[А-ЯІЇЄҐ]$"
+    ) = Field(..., example='123А')
     departure_station_code: conint(ge=2200000, le=2299999)
     arrival_station_code: conint(ge=2200000, le=2299999)
     departure_time: datetime
