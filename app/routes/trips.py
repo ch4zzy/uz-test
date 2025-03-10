@@ -44,5 +44,5 @@ async def get_trip_list(
             "arrival_time": trip.arrival_time
         }
         for trip in trips_list
-    ] if trips_list else [{"detail": "No trips found"}]
+    ]
     return context
