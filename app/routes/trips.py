@@ -37,7 +37,6 @@ async def get_trip_list(
     )
     context = [
         {
-            "id": trip.id,
             "train_number": trip.train_number,
             "departure_station_code": trip.departure_station_code,
             "arrival_station_code": trip.arrival_station_code,

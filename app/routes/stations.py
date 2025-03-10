@@ -13,7 +13,6 @@ async def get_station_list():
     station_list = await stations_repo.list()
     context = [
         {
-            "id": station.id,
             "name": station.name,
             "code": station.code
         } for station in station_list]

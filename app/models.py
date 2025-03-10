@@ -8,11 +8,9 @@ class Station(BaseModel):
     Class representing a station model.
 
     Attributes:
-    id: int - station id (auto-generated)
     name: str - station name (min length 3, max length 64, only letters, numbers, hyphens and apostrophes)
     code: int - station code (between 2200000 and 2299999)
     """
-    id: int = None
     name: constr(
         min_length=3, max_length=64, pattern=r"^[А-Яа-яІЇЄҐієїґ0-9'-]{3,}$"
     ) = Field(..., example='Київ-Пасажирський-5')
@@ -34,11 +32,9 @@ class Train(BaseModel):
     Class representing a train model.
 
     Attributes:
-    id: int - train id (auto-generated)
     number: str - train number (4 digits followed by a letter)
     wagons: List[Wagon] - list of wagons (at least 1 wagon, all wagon numbers must be unique)
     """
-    id: int = None
     number: constr(
         min_length=4, max_length=4, pattern=r"^\d{3}[А-ЯІЇЄҐ]$"
     ) = Field(..., example='123А')
@@ -61,14 +57,12 @@ class Trip(BaseModel):
     Class representing a trip model.
 
     Attributes:
-    id: int - trip id (auto-generated)
     train_number: str - train number (4 digits followed by a letter)
     departure_station_code: int - departure station code (between 2200000 and 2299999)
     arrival_station_code: int - arrival station code (between 2200000 and 2299999)
     departure_time: datetime - departure time
     arrival_time: datetime - arrival time
     """
-    id: int = None
     train_number: constr(
         min_length=4, max_length=4, pattern="^\d{3}[А-ЯІЇЄҐ]$"
     ) = Field(..., example='123А')

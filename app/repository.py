@@ -29,7 +29,7 @@ class StationRepository:
         async with self.db.get_connection() as connection:
             rows = await connection.fetch(
                 '''
-                SELECT id, name, code FROM stations
+                SELECT name, code FROM stations
                 '''
             )
             return [Station(**row) for row in rows]
@@ -38,7 +38,7 @@ class StationRepository:
         async with self.db.get_connection() as connection:
             row = await connection.fetchrow(
                 '''
-                SELECT id, name, code FROM stations WHERE code = $1
+                SELECT name, code FROM stations WHERE code = $1
                 ''', code
             )
             if not row:
@@ -80,7 +80,7 @@ class TrainRepository:
         async with self.db.get_connection() as connection:
             row = await connection.fetchrow(
                 '''
-                SELECT id, number, wagons FROM trains WHERE number = $1
+                SELECT number, wagons FROM trains WHERE number = $1
                 ''', number
             )
             if not row:
@@ -148,7 +148,7 @@ class TripRepository:
                     (train_number, departure_station_code, arrival_station_code, departure_time, arrival_time)
                     VALUES ($1, $2, $3, $4, $5)
                     RETURNING 
-                    id, train_number, departure_station_code, arrival_station_code, departure_time, arrival_time
+                    train_number, departure_station_code, arrival_station_code, departure_time, arrival_time
                     ''',
                     trip.train_number,
                     trip.departure_station_code,
@@ -172,7 +172,7 @@ class TripRepository:
                 rows = await connection.fetch(
                     '''
                     SELECT
-                    id, train_number, departure_station_code, arrival_station_code, departure_time, arrival_time
+                    train_number, departure_station_code, arrival_station_code, departure_time, arrival_time
                     FROM trips
                     WHERE departure_station_code = $1 AND arrival_station_code = $2
                     AND departure_time >= $3 AND arrival_time <= $4
