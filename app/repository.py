@@ -32,9 +32,7 @@ class StationRepository:
                 SELECT name, code FROM stations
                 '''
             )
-            if not rows:
-                raise HTTPException(status_code=404, detail="Stations not found")
-            return [Station(**row) for row in rows]
+            return [Station(**row) for row in rows] if rows else []
 
     async def get(self, code: int) -> Station:
         async with self.db.get_connection() as connection:
@@ -184,8 +182,6 @@ class TripRepository:
                     departure_time,
                     arrival_time
                 )
-                if not rows:
-                    raise HTTPException(status_code=404, detail="Trips not found")
-                return [Trip(**row) for row in rows] if rows else None
+                return [Trip(**row) for row in rows] if rows else []
         except asyncpg.exceptions.DataError:
             raise HTTPException(status_code=400, detail="Invalid data")
