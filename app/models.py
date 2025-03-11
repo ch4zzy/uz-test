@@ -24,7 +24,9 @@ class Wagon(BaseModel):
     Attributes:
     number: str - wagon number (3 digits followed by 'К', 'Л' or 'П')
     """
-    number: constr(min_length=3, max_length=3, pattern=r"^\d{2}[КЛП]$")
+    number: constr(
+        min_length=3, max_length=3, pattern=r"^\d{2}[КЛП]$"
+    ) = Field(..., example='01К')
 
 
 class Train(BaseModel):
