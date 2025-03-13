@@ -1,6 +1,7 @@
-import asyncpg
 import asyncio
 from contextlib import asynccontextmanager
+
+import asyncpg
 
 
 class Database:

@@ -1,11 +1,12 @@
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 
-from app.routes import stations, trains, trips
 from app.dependencies import db, stations_repo, trains_repo, trips_repo
 from app.redis import redis
+from app.routes import stations, trains, trips
 
 
 @asynccontextmanager
