@@ -11,13 +11,7 @@ router = APIRouter(prefix="/station", tags=["stations"])
 @cache(expire=60)
 async def get_station_list():
     station_list = await stations_repo.list()
-    context = [
-        {
-            "name": station.name,
-            "code": station.code
-        } for station in station_list]
-
-    return context
+    return station_list
 
 
 @router.get("/{code}", status_code=200)

@@ -1,6 +1,7 @@
 import asyncio
 
 from faker import Faker
+
 from app.dependencies import stations_repo, trains_repo, trips_repo, db
 from app.models import Station, Train, Wagon, Trip
 
